@@ -1,0 +1,30 @@
+$breakpoints: (
+    "medium": 768px,
+    "large": 992px
+);
+
+$fonts: (
+    "main": #{Arial, Helvetica, sans-serif},
+    "secondary": #{'Unbounded', sans-serif},
+);
+
+$colors: (
+    "main": #fff,
+    "active": #A1ECFF,
+    "space1": #8800ed,
+    "space2": #00b5f1,
+);
+
+$easing: (
+    "main": cubic-bezier(0.645, 0.045, 0.355, 1),
+    "secondary": cubic-bezier(.77,.14,.29,.86),
+    "jump": cubic-bezier(0.75, -1.27, 0.3, 2.33)
+);
+
+$offset: 20px;
+
+@keyframes loop {
+    to {
+        transform: rotate(360deg);
+    }
+}
