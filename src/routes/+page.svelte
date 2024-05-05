@@ -2,40 +2,130 @@
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
 
-	let introParagraph1: any, introParagraph2: any, introParagraph3: any;
+	let introText1: any,
+		introText2: any,
+		introText3: any,
+		introTextCover1: any,
+		introTextCover2: any,
+		introTextCover3: any;
 
 	onMount(() => {
-		gsap.fromTo(introParagraph1, { y: '105%', opacity: 0 }, { y: 0, opacity: 1, duration: .8 });
-		gsap.fromTo(introParagraph2, { y: '105%', opacity: 0 }, { y: 0, opacity: 1, duration: .8, delay: .1 });
-		gsap.fromTo(introParagraph3, { y: '105%', opacity: 0 }, { y: 0, opacity: 1, duration: .8, delay: .2 });
+		const tl1 = gsap.timeline();
+		const tl2 = gsap.timeline({ delay: 0.2 });
+		const tl3 = gsap.timeline({ delay: 0.4 });
+		tl1.fromTo(
+			introTextCover1,
+			{
+				x: '-100%'
+			},
+			{
+				x: 0,
+				duration: 0.5,
+				ease: 'power1.out'
+			}
+		);
+		tl1.set(introText1, {
+			opacity: 1
+		});
+		tl1.to(introTextCover1, {
+			x: '100%',
+			duration: 0.5,
+			ease: 'power1.out'
+		});
+		tl2.fromTo(
+			introTextCover2,
+			{
+				x: '-100%'
+			},
+			{
+				x: 0,
+				duration: 0.5,
+				ease: 'power1.out'
+			}
+		);
+		tl2.set(introText2, {
+			opacity: 1
+		});
+		tl2.to(introTextCover2, {
+			x: '100%',
+			duration: 0.5,
+			ease: 'power1.out'
+		});
+		tl3.fromTo(
+			introTextCover3,
+			{
+				x: '-100%'
+			},
+			{
+				x: 0,
+				duration: 0.5,
+				ease: 'power1.out'
+			}
+		);
+		tl3.set(introText3, {
+			opacity: 1
+		});
+		tl3.to(introTextCover3, {
+			x: '100%',
+			duration: 0.5,
+			ease: 'power1.out'
+		});
 	});
 </script>
 
 <section class="section section_intro">
 	<div class="container">
 		<h1 class="intro">
-			<span bind:this={introParagraph1} class="intro_title">Alexey ilin</span>
-			<span bind:this={introParagraph2} class="intro_position">Web developer &</span>
-			<span bind:this={introParagraph3} class="intro_marked">source explorer</span>
+			<span class="intro_text-container">
+				<span bind:this={introText1} class="intro_text intro_text-title">Alexey ilin</span>
+				<span bind:this={introTextCover1} class="intro_text-cover"></span>
+			</span>
+			<span class="intro_text-container">
+				<span bind:this={introText2} class="intro_text intro_text-main">Web developer &</span>
+				<span bind:this={introTextCover2} class="intro_text-cover"></span>
+			</span>
+			<span class="intro_text-container">
+				<span bind:this={introText3} class="intro_text intro_text-other">source explorer</span>
+				<span bind:this={introTextCover3} class="intro_text-cover"></span>
+			</span>
 		</h1>
 	</div>
 </section>
 
 <style lang="scss">
-	@import "variables.scss";
+	@import 'variables.scss';
 	.intro {
 		text-transform: uppercase;
-		mix-blend-mode: luminosity;
 		span {
-			display: block;
+			display: inline-flex;
 		}
-		& &_title {
-			font-weight: 200;
+		&_text-container {
+			position: relative;
+			overflow: hidden;
 		}
-		& &_marked {
-			background: linear-gradient(to right, lighten(map-get($colors, 'space2'), 10), lighten(map-get($colors, 'space1'), 10));
-			background-clip: text;
-			-webkit-text-fill-color: transparent;
+		&_text {
+			opacity: 0;
+			&-title {
+				font-weight: 200;
+			}
+			&-other {
+				background: linear-gradient(
+					to right,
+					lighten(map-get($colors, 'space2'), 10),
+					lighten(map-get($colors, 'space1'), 10)
+				);
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+		}
+		&_text-cover {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: #fff;
+			transform: translateX(-100%);
 		}
 	}
 </style>

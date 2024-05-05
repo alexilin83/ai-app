@@ -27,6 +27,10 @@ a {
 .site {
     position: relative;
     overflow: hidden;
+    &.loading * {
+        transition: none !important;
+        animation: none !important; 
+    }
 }
 
 .header {
@@ -87,26 +91,6 @@ a {
         bottom: 0;
         width: 100%;
         margin: 0;
-        .social__item {
-            @for $i from 1 through 10 {
-                &:nth-child(#{$i}) {
-                    .social__link {
-                        transition-delay: $i * 100ms;
-                    }
-                }
-            }
-        }
-        .social__link {
-            opacity: 0;
-            transform: scale(0);
-            transition: .3s map-get($easing, 'main');
-        }
-    }
-    .loaded &_main {
-        .social__link {
-            opacity: 1;
-            transform: scale(1);
-        }
     }
 }
 
@@ -138,12 +122,6 @@ a {
         position: fixed;
         right: 10px;
         top: 10px;
-        opacity: 0;
-    }
-    .loaded & {
-        &_mail {
-            opacity: 1;
-        }
     }
 }
 
@@ -160,24 +138,10 @@ a {
         width: 25px;
         fill: map-get($colors, 'active');
         path {
-            opacity: 0;
-            transition: .5s;
             &:nth-child(2) {
-                transition-delay: .1s;
+                opacity: .6;
             }
         }
-    }
-    .loaded & {
-        svg {
-            path {
-                &:nth-child(1) {
-                    opacity: 1;
-                }
-                &:nth-child(2) {
-                    opacity: .6;
-                }
-            }
-        }   
     }
 }
 

@@ -28,10 +28,10 @@
 		tl.to(cursorElement, {
 			x: x,
 			y: y,
-			duration: .5
+			duration: 0.5
 		});
 		tl.to(cursorElement, {
-			opacity: .5
+			opacity: 0.5
 		});
 	};
 
@@ -41,12 +41,12 @@
 </script>
 
 <svelte:window on:mousemove={setCursorCoords} />
-<div class="site" class:loaded={isLoaded}>
+<div class="site" class:loading={!isLoaded}>
 	<header class="header">
 		<div class="logo">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 51">
-				<path d="M0 51, 21 15, 43.5 52 Z" />
-				<path d="M23 12, 30 1, 60 51, 47 51 Z" />
+			<svg viewBox="0 0 260 219" xmlns="http://www.w3.org/2000/svg">
+				<path d="M95.302,58.317l96.373,160.11l-191.675,-0.107l95.302,-160.003Z" />
+				<path d="M100.252,49.812l29.711,-49.812l130.037,218.465l-58,-0l-101.748,-168.653Z" />
 			</svg>
 		</div>
 		<a
@@ -64,48 +64,24 @@
 	</main>
 	<footer class="footer">
 		<div class="container">
-			<ul class="social social_main">
+			<ul class="social social_main" on:mouseover={highlightCursor} on:mouseout={unHighlightCursor}>
 				<li class="social__item">
-					<a
-						class="social__link"
-						href="https://twitter.com/alexilin"
-						title="Twitter"
-						on:mouseover={highlightCursor}
-						on:mouseout={unHighlightCursor}
-					>
+					<a class="social__link" href="https://twitter.com/alexilin" title="Twitter">
 						<IconBrandTwitterFilled size={16} />
 					</a>
 				</li>
 				<li class="social__item">
-					<a
-						class="social__link"
-						href="https://codepen.io/alexilin"
-						title="Codepen"
-						on:mouseover={highlightCursor}
-						on:mouseout={unHighlightCursor}
-					>
+					<a class="social__link" href="https://codepen.io/alexilin" title="Codepen">
 						<IconBrandCodepen size={16} />
 					</a>
 				</li>
 				<li class="social__item">
-					<a
-						class="social__link"
-						href="https://github.com/alexilin83"
-						title="Github"
-						on:mouseover={highlightCursor}
-						on:mouseout={unHighlightCursor}
-					>
+					<a class="social__link" href="https://github.com/alexilin83" title="Github">
 						<IconBrandGithub size={16} />
 					</a>
 				</li>
 				<li class="social__item">
-					<a
-						class="social__link"
-						href="https://themeforest.net/user/themepatico"
-						title="Envato"
-						on:mouseover={highlightCursor}
-						on:mouseout={unHighlightCursor}
-					>
+					<a class="social__link" href="https://themeforest.net/user/themepatico" title="Envato">
 						<IconBrandEnvato size={16} />
 					</a>
 				</li>

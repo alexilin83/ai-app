@@ -23,8 +23,13 @@ $easing: (
 
 $offset: 20px;
 
-@keyframes loop {
+@keyframes text-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
     to {
-        transform: rotate(360deg);
+        opacity: 1;
+        transform: translateY(0);
     }
 }
