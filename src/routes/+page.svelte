@@ -1,17 +1,13 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
-	import SplitType from 'split-type';
 
 	let introText1: any,
 		introText2: any,
 		introText3: any;
 
 	onMount(() => {
-		const text1 = new SplitType(introText1);
-		const text2 = new SplitType(introText2);
-		const text3 = new SplitType(introText3);
-		gsap.fromTo(text1.chars, {
+		gsap.fromTo(introText1, {
 			x: 50,
 			opacity: 0
 		}, {
@@ -21,7 +17,18 @@
 			duration: 2,
 			ease: 'power4.out'
 		});
-		gsap.fromTo(text2.chars, {
+		gsap.fromTo(introText2, {
+			x: 50,
+			opacity: 0
+		}, {
+			x: 0,
+			opacity: 1,
+			stagger: .05,
+			duration: 2,
+			delay: .1,
+			ease: 'power4.out'
+		});
+		gsap.fromTo(introText3, {
 			x: 50,
 			opacity: 0
 		}, {
@@ -30,17 +37,6 @@
 			stagger: .05,
 			duration: 2,
 			delay: .2,
-			ease: 'power4.out'
-		});
-		gsap.fromTo(text3.chars, {
-			x: 50,
-			opacity: 0
-		}, {
-			x: 0,
-			opacity: 1,
-			stagger: .05,
-			duration: 2,
-			delay: .4,
 			ease: 'power4.out'
 		});
 	});
@@ -64,7 +60,7 @@
 			display: block;
 		}
 		&_text {
-			// opacity: 0;
+			opacity: 0;
 			&-title {
 				font-weight: 200;
 			}

@@ -1,11 +1,9 @@
 <script lang="ts">
-	import {
-		IconBrandTwitterFilled,
-		IconBrandCodepen,
-		IconBrandGithub,
-		IconBrandEnvato,
-		IconSend
-	} from '@tabler/icons-svelte';
+	import IconBrandTwitterFilled from '@tabler/icons-svelte/IconBrandTwitterFilled.svelte';
+	import IconBrandCodepen from '@tabler/icons-svelte/IconBrandCodepen.svelte';
+	import IconBrandGithub from '@tabler/icons-svelte/IconBrandGithub.svelte';
+	import IconBrandEnvato from '@tabler/icons-svelte/IconBrandEnvato.svelte';
+	import IconSend from '@tabler/icons-svelte/IconSend.svelte';
 	import './index.scss';
 	import { gsap } from 'gsap';
 	import { onMount } from 'svelte';
