@@ -37,6 +37,7 @@
 		"@tabler/icons-svelte": "^3.2.0",
 		"gsap": "^3.12.5",
 		"normalize.css": "^8.0.1",
-		"shree": "^0.1.14"
+		"shree": "^0.1.14",
+		"split-type": "^0.3.4"
 	}
 }
