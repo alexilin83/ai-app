@@ -49,11 +49,11 @@
 	});
 </script>
 
+<svelte:window on:mousemove={setCursorCoords} />
 <svelte:head>
 	<title>Alexey Ilin</title>
-	<meta name="description" content="Web develop" />
+	<meta name="description" content="Web developer"> 
 </svelte:head>
-<svelte:window on:mousemove={setCursorCoords} />
 <div class="site" class:loading={!isLoaded}>
 	<header class="header">
 		<div class="logo">
