@@ -9,7 +9,7 @@ body {
 
 h1 {
     margin: 0;
-    font: bold 1.5em/1.2 map-get($fonts, 'secondary');
+    font: bold 1.2em/1.4 map-get($fonts, 'secondary');
 }
 
 p {
@@ -66,7 +66,7 @@ a {
     position: relative;
     width: map-get($breakpoints, 'large');
     margin: auto;
-    padding: $offset * 2 $offset * 2;
+    padding: $offset * 2 $offset * 1.5;
     z-index: 10;
 }
 
@@ -142,13 +142,6 @@ a {
             }
         }
     }
-}
-
-#canvas {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1;
 }
 
 #cursor {

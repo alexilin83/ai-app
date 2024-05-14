@@ -1,18 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
-	import audio from '$lib/assets/audio.wav';
-	import IconMusic from '@tabler/icons-svelte/IconMusic.svelte';
-	import IconMusicOff from '@tabler/icons-svelte/IconMusicOff.svelte';
+	import audioFile from '$lib/assets/audio.mp3';
+	import IconVolume from '@tabler/icons-svelte/IconVolume.svelte';
+	import IconVolumeOff from '@tabler/icons-svelte/IconVolumeOff.svelte';
 	import { cursor } from '$lib/stores.js';
 
 	let isSoundOn = false;
+	let isAudioLoaded = false;
 
-	let canvasWrapper: HTMLDivElement;
-	let audioElement: HTMLAudioElement;
+	let canvasElement: HTMLDivElement;
+	let audio: HTMLAudioElement;
 	let audioButton: HTMLButtonElement;
 
-	let yMod: number;
+	let yMod: number = 1;
 
 	const vertexShader = `
 		attribute vec3 position;
@@ -51,32 +52,7 @@
 
 	let audioCtx, analyser: AnalyserNode, dataArray: Uint8Array, bufferLength: number;
 
-	const initAudio = () => {
-		audioCtx = new AudioContext();
-		analyser = audioCtx.createAnalyser();
-		const distortion = audioCtx.createWaveShaper();
-		const source = audioCtx.createMediaElementSource(audioElement);
-		source.connect(analyser);
-		analyser.connect(distortion);
-		distortion.connect(audioCtx.destination);
-
-		analyser.fftSize = 2048;
-		bufferLength = analyser.frequencyBinCount;
-		dataArray = new Uint8Array(bufferLength);
-
-		renderWave();
-	};
-
-	const renderWave = () => {
-		analyser.getByteTimeDomainData(dataArray);
-		for (let i = 0; i < bufferLength; i++) {
-			const v = dataArray[i] / 128.0;
-			yMod = v * 2;
-		}
-		requestAnimationFrame(renderWave);
-	};
-
-	const initCanvas = () => {
+	const init = () => {
 		const width = window.innerWidth;
 		const height = window.innerHeight;
 
@@ -84,7 +60,7 @@
 		renderer.pixelRatio = 1;
 		renderer.clearColor = [0, 0, 0, 0];
 		renderer.setSize(width, height);
-		canvasWrapper.appendChild(renderer.domElement);
+		canvasElement.appendChild(renderer.domElement);
 
 		scene = new SHREE.Scene();
 
@@ -133,19 +109,60 @@
 		render();
 	};
 
+	const initAudio = () => {
+		audio = new Audio();
+		audio.addEventListener('loadeddata', () => {
+			isAudioLoaded = true;
+			audioToggle();
+		});
+
+		//@ts-ignore
+		const AudioContext = window.AudioContext || window.webkitAudioContext;
+		audioCtx = new AudioContext();
+		const source = audioCtx.createMediaElementSource(audio);
+		analyser = audioCtx.createAnalyser();
+		source.connect(analyser);
+		source.connect(audioCtx.destination);
+
+		audio.src = audioFile;
+		audio.loop = true;
+		audio.load();
+
+		analyser.fftSize = 2048;
+		bufferLength = analyser.frequencyBinCount;
+		dataArray = new Uint8Array(bufferLength);
+	}
+
 	const render = () => {
 		material.uniforms.time.value += 0.1;
 		material.uniforms.yMod.value = yMod;
 		renderer.render(scene, camera);
+
+		if (isAudioLoaded) {
+			analyser.getByteTimeDomainData(dataArray);
+			for (let i = 0; i < bufferLength; i++) {
+				const v = dataArray[i] / 128.0;
+				yMod = v * 2;
+			}
+		}
+
 		requestAnimationFrame(render);
 	};
 
 	const audioToggle = () => {
 		isSoundOn = !isSoundOn;
 		if (isSoundOn) {
-			audioElement.play();
+			audio.play();
 		} else {
-			audioElement.pause();
+			audio.pause();
+		}
+	};
+
+	const handleAudioClick = () => {
+		if (isAudioLoaded) {
+			audioToggle();
+		} else {
+			initAudio();
 		}
 	};
 
@@ -160,48 +177,43 @@
 
 	onMount(async () => {
 		SHREE = await import('shree');
-		initCanvas();
-		initAudio();
+		init();
 	});
 </script>
 
-<div id="canvas" bind:this={canvasWrapper}></div>
-<div class="audio">
-	<audio src={audio} loop bind:this={audioElement}></audio>
-	<button
-		class="btn-icon"
-		bind:this={audioButton}
-		on:click={audioToggle}
-		on:mouseover={highlightCursor}
-		on:mouseout={unHighlightCursor}
-	>
-		{#if isSoundOn}
-			<IconMusic size={20} />
-		{:else}
-			<IconMusicOff size={20} />
-		{/if}
-	</button>
-</div>
+<div id="canvas" bind:this={canvasElement}></div>
+<button
+	class="btn-icon btn-icon_audio"
+	bind:this={audioButton}
+	on:click={handleAudioClick}
+	on:mouseover={highlightCursor}
+	on:mouseout={unHighlightCursor}
+>
+	{#if isSoundOn}
+		<IconVolume size={20} />
+	{:else}
+		<IconVolumeOff size={20} />
+	{/if}
+</button>
 
 <style lang="scss">
 	@import '../../routes/variables.scss';
-	.audio {
-		position: absolute;
-		right: 0;
-		bottom: 0;
+	#canvas {
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 1;
+	}
+	.btn-icon_audio {
+		position: fixed;
+		right: 20px;
+		bottom: 20px;
 		z-index: 20;
-		button {
-			position: absolute;
-			right: 20px;
-			bottom: 20px;
-		}
 	}
 	@media (min-width: map-get($breakpoints, 'medium')) {
-		.audio {
-			button {
-				right: 80px;
-				bottom: 80px;
-			}
+		.btn-icon_audio {
+			right: 80px;
+			bottom: 80px;
 		}
 	}
 </style>
