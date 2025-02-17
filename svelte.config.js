@@ -10,7 +10,8 @@ const config = {
 			// assets: 'docs',
 		}),
 		paths: {
-			base: process.argv.includes('dev') ? '' : '/ai-app'
+			base: process.argv.includes('dev') ? '' : '/ai-app',
+			assets: "https://alexilin83.github.io/ai-app/docs"
 		}
 	},
 };
