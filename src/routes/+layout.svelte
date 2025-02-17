@@ -5,7 +5,6 @@
 	import IconBrandTwitterFilled from '@tabler/icons-svelte/IconBrandTwitterFilled.svelte';
 	import IconBrandCodepen from '@tabler/icons-svelte/IconBrandCodepen.svelte';
 	import IconBrandGithub from '@tabler/icons-svelte/IconBrandGithub.svelte';
-	import IconBrandEnvato from '@tabler/icons-svelte/IconBrandEnvato.svelte';
 	import IconSend from '@tabler/icons-svelte/IconSend.svelte';
 	import './index.scss';
 	import Waves from '$lib/Waves/Waves.svelte';
@@ -52,7 +51,8 @@
 <svelte:window on:mousemove={setCursorCoords} />
 <svelte:head>
 	<title>Alexey Ilin</title>
-	<meta name="description" content="Web developer"> 
+	<meta name="description" content="Web developer">
+	<meta name="yandex-verification" content="29bf0fe2c1cc256c" />
 </svelte:head>
 <div class="site" class:loading={!isLoaded}>
 	<header class="header">
@@ -91,11 +91,6 @@
 				<li class="social__item">
 					<a class="social__link" href="https://github.com/alexilin83" title="Github">
 						<IconBrandGithub size={20} />
-					</a>
-				</li>
-				<li class="social__item">
-					<a class="social__link" href="https://themeforest.net/user/themepatico" title="Envato">
-						<IconBrandEnvato size={20} />
 					</a>
 				</li>
 			</ul>
