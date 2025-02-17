@@ -7,8 +7,11 @@ const config = {
 	kit: {
 		adapter: adapter({
 			pages: 'docs',
-			// assets: 'docs',
+			assets: 'docs',
 		}),
+		paths: {
+			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
+		}
 	},
 };
 
