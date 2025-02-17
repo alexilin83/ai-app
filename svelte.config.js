@@ -9,6 +9,9 @@ const config = {
 			pages: 'docs',
 			assets: 'docs',
 		}),
+		paths: {
+			base: process.argv.includes('dev') ? '' : '/docs'
+		}
 	},
 };
 
