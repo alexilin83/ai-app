@@ -6,7 +6,7 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
-			// pages: 'docs',
+			pages: 'docs',
 			// assets: 'docs',
 		}),
 		paths: {
