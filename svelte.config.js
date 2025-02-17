@@ -9,10 +9,6 @@ const config = {
 			pages: 'docs',
 			assets: 'docs',
 		}),
-		paths: {
-			assets: process.argv.includes('dev') ? '' : 'https://alexilin.ru/docs',
-			base: process.argv.includes('dev') ? '' : '/docs'
-		}
 	},
 };
 
