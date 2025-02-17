@@ -11,7 +11,7 @@ const config = {
 		}),
 		paths: {
 			// base: process.argv.includes('dev') ? '' : '/docs'
-			assets: 'https://alexilin.ru/docs'
+			assets: 'https://alexilin83.github.io/docs'
 		}
 	},
 };
